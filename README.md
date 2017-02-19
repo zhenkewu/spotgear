@@ -20,12 +20,16 @@ Autoimmune diseases, e.g., scleroderma, are human immune system’s
     gel data preprocessing (Bayesian two dimensional image dewarping/registration) and then provide methods to
     detect disease subgroups.
 
-Animation of Fitted Bayesian Dewarping Result
+Visualization
 -------------------------------
+
+##Animation of Fitted Bayesian Dewarping Result
 
 ![](inst/example_figure/animation.gif)
 
 **Figure 1**: Correction for smooth non-rigid gel deformation. Shown here are, for each gel batch, 19 serum lanes at 50 interior molecular weight grid points with large and small weights toward the left and right, respectively. Solid blue dots are detected peaks deviating from its true weight. Each detected peak is connected to a red triangle that represents the most likely actual molecular weight landmark. The black vertical curves together show the deformation, with each black vertical curve connecting locations with identical molecular weights. The curves are drawn for each grid point.
+
+##Heatmap of Aligned Gels
 
 ![](inst/example_figure/pwl_after_dewarping.png)
 
