@@ -22,8 +22,7 @@ Autoimmune diseases, e.g., scleroderma, are human immune system’s
 Animation of Fitted Bayesian Dewarping Result
 -------------------------------
 
-![**Figure**: Correction for smooth non-rigid gel deformation. Shown here are, for each gel batch, $19$ serum lanes at $50$ interior molecular weight grid points with large and small weights toward the left and right, respectively. Solid <span style="color:blue">blue</span> dots "<span style="color:blue">$\bullet$</span>" are detected peaks deviating from its true weight. Each detected peak is connected to a <span style="color:red">red</span> triangle "<span style="color:red">$\Delta$</span>" that represents the most likely actual molecular weight landmark. The black vertical curves together show the deformation, with each black vertical curve connecting locations with identical molecular weights. The curves are drawn for each grid point.
-](inst/example_figure/animation.gif)
+![**Figure**: Correction for smooth non-rigid gel deformation. Shown here are, for each gel batch, $19$ serum lanes at $50$ interior molecular weight grid points with large and small weights toward the left and right, respectively. Solid <span style="color:blue">blue</span> dots "<span style="color:blue">$\bullet$</span>" are detected peaks deviating from its true weight. Each detected peak is connected to a <span style="color:red">red</span> triangle "<span style="color:red">$\Delta$</span>" that represents the most likely actual molecular weight landmark. The black vertical curves together show the deformation, with each black vertical curve connecting locations with identical molecular weights. The curves are drawn for each grid point.](inst/example_figure/animation.gif)
 
 
 Maintainer:
