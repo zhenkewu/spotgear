@@ -1,0 +1,7 @@
+spotgear.Rproj
+.Rproj.user
+.Rhistory
+.RData
+.pdf
+.DS_Store
+inst/doc

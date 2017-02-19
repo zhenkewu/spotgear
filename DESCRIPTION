@@ -1,0 +1,41 @@
+Package: spotgear
+Type: Package
+Title: Subset Profiling and Organizing Tools for Gel Electrophoresis
+    Autoradiography in R
+Version: 0.1.1
+Author: as.person(c(
+    "Zhenke Wu <zhenkewu@umich.edu> [aut, cre]",
+    "Scott Zeger <sz@jhu.edu> [aut]"
+    ))
+Maintainer: <zhenkewu@umich.edu>
+Description: Autoimmune diseases, e.g., scleroderma, are human immune system’s
+    responses to autoantigens in which the body produces specific autoantibodies
+    that target these autoantigens but also cause tissue damage. The autoantibody
+    composition is strikingly different among patients, as indicated by the many
+    different radiolabeled patterns obtained from the mass-spectrometry-based
+    technology - gel electrophoresis autoradiograms (GEA). Human recognition of
+    patterns is not optimal when the patterns are composite/complex, or patterns
+    are scattered across a large number of sam- ples. However, multiple sources of
+    error (including irrelevant intensity differences across gels and warping of
+    the gels) have traditionally precluded automation of pattern discovery using
+    autoradiograms. In this package, we overcome these limitations by novel initial
+    gel data preprocessing (Bayesian 2 dimensional image dewarping/registration) and then provide methods to
+    detect disease subgroups. 
+Imports:
+    msir(>= 1.3),
+    rjags(>= 4-6),
+    R2jags(>= 0.5),
+    coda(>= 0.16),
+    ggplot2(>= 1.0),
+    reshape2(>= 1.4),
+    MassSpecWavelet(>= 1.40)
+Depends:
+    R(>= 3.3)
+License: MIT + file LICENSE
+SystemRequirements: JAGS (>= 4.1.0) (http://mcmc-jags.sourceforge.net)
+Encoding: UTF-8
+LazyData: true
+RoxygenNote: 5.0.1
+Suggests: knitr,
+    rmarkdown
+VignetteBuilder: knitr
