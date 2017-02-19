@@ -27,7 +27,7 @@ Imports:
     R2jags(>= 0.5),
     coda(>= 0.16),
     ggplot2(>= 1.0),
-    reshape2(>= 1.4),
+     reshape2(>= 1.4),
     MassSpecWavelet(>= 1.40)
 Depends:
     R(>= 3.3)
