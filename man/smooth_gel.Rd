@@ -7,8 +7,9 @@
 smooth_gel(dat_raw, span)
 }
 \arguments{
-\item{dat_raw}{Raw data obtained from \code{\link{read_IPdata}}. First Column is from 0 to 1, evenly
-split grids; Other columns record intensity values obtained from all the tested sample lanes.}
+\item{dat_raw}{Raw data obtained from \code{\link{read_IPdata}}. First column represents
+a equal-spaced grid over 0 and 1; Other columns record intensity values obtained from all 
+the tested sample lanes.}
 
 \item{span}{The parameter tha controls the degree of smoothing. See \code{\link[stats]{loess}}}
 }

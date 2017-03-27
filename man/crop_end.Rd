@@ -11,7 +11,7 @@ crop_end(dat_binned, percent = 4.4, bp)
 
 \item{percent}{Default is 4.4. The percentage of bins at the right end to be cropped.}
 
-\item{bp}{Break points that defined the binning. See \code{\link{bin_gel}}.}
+\item{bp}{Break points that defined the binning in \code{\link{bin_gel}}.}
 }
 \value{
 A list of two elements:

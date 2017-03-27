@@ -15,7 +15,7 @@ contain smoothed (e.g., by loess) intensity values.}
 }
 \value{
 A data frame with binned data, calculated from all intensity data
-belonging to the same bin.
+belonging to the same bin. The first two columns are bin labels and equal-spaced grids, respectively.
 }
 \description{
 Force multiple gels to share identical bins

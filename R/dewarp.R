@@ -47,7 +47,7 @@ correct_batch_effect_by_ref <- function(dat_binned_query,dat_binned_ref,
   ref_index    <- which(peak_ind_mat_ref[,1]==score_thres) # <- first lane has to be reference.
   knots_ref   <- c(1,ref_index,nrow(dat_binned_ref))
   ref_loc      <- rev(sort(bp[ref_index]))
-
+  
   knots_query <- c(1,which(peak_ind_mat_query[,1]==score_thres),nrow(dat_binned_query))
   warped_ind  <- sapply(1:nrow(dat_binned_query),pwl,knots_ref,knots_query)
   make_list(ref_loc,warped_ind)
@@ -103,6 +103,10 @@ create_batch_aligned_data <- function(dat_binned_list,
 #' @param data_lcm_all A binary matrix of the number of rows being the number of serum samples
 #' and the number of columns being J+2 (J for intermediate landmarks and 2 end points)
 #' @param zero_to_one_v_landmark The landmark location on the zero to one scale.
+#' @param bugs_gel_id Starts from 1.
+#' @param bugs_in_gel_id Starts from 1 to say 19.
+#' @param N_per_gel Analyzed number of lanes per gel.
+#'
 #'
 #' @return A list of two elements:
 #' \itemize{
@@ -113,13 +117,292 @@ create_batch_aligned_data <- function(dat_binned_list,
 #' }
 #' @export
 pwl_after_dewarping    <- function(g_id,l_id,normalized_rf,dat_without_lane1,data_lcm_all,
-                                   zero_to_one_v_landmark){
+                                   zero_to_one_v_landmark,bugs_gel_id,bugs_in_gel_id,N_per_gel){
   n_total_bins  <- length(normalized_rf)
-  ref           <- data_lcm_all[19*(g_id-1)+l_id-1,]
+  G             <- length(N_per_gel)
+  ref           <- data_lcm_all[c(0,cumsum(N_per_gel)[-G])[bugs_gel_id]+bugs_in_gel_id,]
   ref_index     <- sapply(zero_to_one_v_landmark[ref > 0],function(v) which.min(abs(normalized_rf-v))) #<-- find among normalized_rf, which ones are close to each of landmarks.
-  knots_base    <- c(1,ref_index,n_total_bins)
-
-  knots_query   <- c(1,subset(dat_without_lane1,gel_ID==g_id & lane_ID==l_id)$peak_bin_index,n_total_bins)
+  knots_base    <- c(ifelse(min(ref_index)==1,NA,1),ref_index,
+                     ifelse(max(ref_index)==n_total_bins,NA,n_total_bins))
+  knots_base    <- knots_base[!is.na(knots_base)]
+  
+  knots_query   <- c(ifelse(min(ref_index)==1,NA,1),
+                     subset(dat_without_lane1,gel_ID==g_id & lane_ID==l_id)$peak_bin_index,
+                     ifelse(max(ref_index)==n_total_bins,NA,n_total_bins))
+  knots_query    <- knots_query[!is.na(knots_query)]
+  
   warped_ind    <- sapply(1:n_total_bins,pwl,knots_base,knots_query)
   make_list(ref_index,warped_ind)
 }
+
+
+#' Fit Bayesian 2D image dewarping models
+#'
+#' @details This function prepares data, specifies hyperparameters in priors, 
+#' initializes the posterior sampling chain, writes the model file (for JAGS syntax), 
+#' and fits the model. Features:
+#' 
+#' If running JAGS on windows, please go to control panel to add the directory to
+#' jags into ENVIRONMENTAL VARIABLE!
+#'
+#' @param data_dewarp Data frame with columns: gel_ID (true id), lane_ID (1 to say 20, 1 will be removed),
+#' band_ID (counts within each lane), Y (t-scale location of peaks), peak_bin_index (index of the bin corresponding
+#' to the peaks; requires common binning across images), lane_ID_stacked (cummulative lane number upon stacking
+#' gels one-by-one; mainly for plotting).
+#' @param mcmc_options A list of Markov chain Monte Carlo (MCMC) options.
+#'
+#' \itemize{
+#' \item \code{debugstatus} Logical - whether to pause WinBUGS after it finishes
+#' model fitting;
+#' \item \code{n.chains} Number of MCMC chains;
+#' \item \code{n.burnin} Number of burn-in samples;
+#' \item \code{n.thin} To keep every other \code{n.thin} samples after burn-in period;
+#' \item \code{result.folder} Path to folder storing the results;
+#' \item \code{bugsmodel.dir} Path to WinBUGS model files;
+#' }
+#' @return BUGS fit results.
+#' 
+#' @import stats
+#' 
+#' @family model fitting functions 
+#' 
+#' @export
+dewarp2d <- 
+  function(data_dewarp,mcmc_options){
+    gel_with_lane1 <- unique(subset(data_dewarp[,c("gel_ID","lane_ID")],lane_ID==1))[,1]
+    if (sum(data_dewarp$lane_ID==1)>0){
+      warning(paste0("==[spotgear] 'data_dewarp' contains Lane 1s for Gel ",
+                     paste(gel_with_lane1,collapse=", "),". They are now removed for gel 2d dewarping. =="))
+      data_dewarp <- subset(data_dewarp,lane_ID!=1)
+    }
+    
+    # Record the settings of current analysis:
+    cat("==[spotgear] Results stored in: ==","\n",mcmc_options$result.folder,"\n")
+    ##model_options:
+    #dput(model_options,file.path(mcmc_options$result.folder,"model_options.txt"))
+    #mcmc_options:
+    dput(mcmc_options,file.path(mcmc_options$result.folder,"mcmc_options.txt"))
+    
+    analysis_id <- as.numeric(levels(unique(data_dewarp$gel_ID))[as.numeric(unique(data_dewarp$gel_ID))])
+    
+    
+    #
+    # Prepare Data:
+    #
+    curr_dat      <- data_dewarp # <--------- curr_dat is got rid of "Lane 1"s with known molecules.
+    Y             <- curr_dat$Y
+    curr_gel_lane <- unique(curr_dat[,c("gel_ID","lane_ID")])
+    N             <- nrow(curr_gel_lane)
+    n_vec         <- rep(NA,N)
+    for (gl in seq_along(n_vec)){
+      n_vec[gl] <- nrow(subset(curr_dat,gel_ID==curr_gel_lane[gl,1] & lane_ID==curr_gel_lane[gl,2]))
+    }
+    
+    if (sum(n_vec!=0)!=N){stop("==[gel] some individuals have no peaks detected!==")}
+    
+    curr_dat$index <- 1:nrow(curr_dat)
+    lookup <- as.matrix(reshape2::dcast(curr_dat,gel_ID+lane_ID~band_ID,value.var = "index"))[,-c(1,2)]
+    class(lookup) <- "numeric"
+    
+    
+    N_gel     <- length(analysis_id)
+    G <- N_gel # sorry, repeated :).
+    # get the number of lanes per gel (excluding Lane 1s):
+    N_per_gel <- sapply(1:N_gel,function(i)  sum(unique(curr_dat[,c("gel_ID","lane_ID")])$gel_ID==analysis_id[i])) # <--- minus one for reference lane.
+    
+   
+    
+    #
+    # for each gel construct bases for 2-dimensional warping functions:
+    #
+    
+    # vertical:
+    T1 <- 6  # <-- no. of bases in "lane" direction.
+    
+    ZBu <- array(0,c(max(N_per_gel),T1,G))
+    u_obs0_list <- u_obs_list <- list()
+    for (g in 1:G){
+      N_homo   <- N_per_gel[g] # <-- assume equal lane numbers.
+      u_obs0   <- (1:N_homo)/(N_homo+1)
+      u_obs    <- (u_obs0-mean(u_obs0))/sd(u_obs0) # <-- vertical standardization.
+      
+      knots_u  <- quantile(u_obs,seq(0,1,length = (T1 - 2))[-c(1,(T1 - 2))])
+      ZBu[1:N_homo,,g]      <- matrix(splines::bs(u_obs,knots= knots_u,
+                                                  intercept=TRUE),nrow=length(u_obs))
+      u_obs0_list[[g]] <- u_obs0
+      u_obs_list[[g]] <- u_obs
+    }
+    
+    # horizontal:
+    T2 <- 10  # <-- no. of bases in "gel" direction.
+    L  <- 100  # <-- no. of interior landmarks.
+    Y_std       <- (Y-mean(curr_dat$Y))/sd(curr_dat$Y) # <-- horizontal standardization.
+    leftend_std <- (0-mean(curr_dat$Y))/sd(curr_dat$Y)
+    rightend_std <- (1-mean(curr_dat$Y))/sd(curr_dat$Y)
+    # landmark grids (plus two boundary points):
+    v_landmark <- seq(leftend_std,rightend_std,length.out=L+2)
+    knots_v    <- quantile(Y_std,seq(0,1,length = (T2 - 2))[-c(1,(T2 - 2))])
+    ZBv        <- matrix(splines::bs(v_landmark,knots= knots_v,
+                                     intercept=TRUE),nrow=length(v_landmark))
+    
+    # get coefficients from identical transformation:
+    ident_fit  <- lm(v_landmark~-1+ZBv)
+    beta_ident <- ident_fit$coef
+    
+    h          <- diff(v_landmark)[1] # <- difference in distance between neighboring grid points.
+    
+    if (L==100){
+      grid_lb    <- pmax(v_landmark[1],v_landmark-1.5*h*2)
+      grid_ub    <- pmin(v_landmark[L+2],v_landmark+1.5*h*2)
+    } 
+    if (L==50){
+      grid_lb    <- pmax(v_landmark[1],v_landmark-1.5*h)
+      grid_ub    <- pmin(v_landmark[L+2],v_landmark+1.5*h)
+    }
+    
+    prec_beta1 <- rep(1/(min(diff(beta_ident))/3)^2,G)
+    
+    N_all_gel <- sum(N_per_gel)
+    gel_id    <- as.numeric(curr_gel_lane[,1])
+    in_gel_id <- c(unlist(sapply(N_per_gel,function(n) 1:n)))
+    
+    # in_data:
+    in_data <- c("Y_std","N_all_gel","G","gel_id","in_gel_id","N_per_gel",
+                 "n_vec","lookup","L","v_landmark","h",
+                 "beta_ident","grid_lb","grid_ub","prec_beta1",
+                 "ZBu","T1","ZBv","T2")
+    
+    # out_parameter:
+    out_parameter <- c("beta","Z","sigma",
+                       "taubeta",
+                       "probmat","Lambda","normalized_probmat",
+                       "flexible_select",
+                       "p_flexible"
+    )
+    
+    # in_init:
+    beta_init <- t(replicate(beta_ident,n=T1))
+    beta_init[,1] <- beta_init[,T2] <- NA # because the beta's on both ends are fixed.
+    beta_init_array <- array(NA,c(nrow(beta_init),ncol(beta_init),G))
+    for (g in 1:G){beta_init_array[,,g] <- beta_init}
+    
+    #probmat_init <- matrix(0,nrow=C,ncol=J+2)
+    #probmat_init[,unique(sapply(1:length(Y_std),function(i)
+    #  which.min(abs(v_landmark-Y_std[i]))))] <- 1
+    in_init <- function(){
+      list(beta  = beta_init_array,
+           Z0    = sapply(1:length(Y_std),function(i)
+             which.min(abs(v_landmark-Y_std[i])))#,
+           #subset = subset_init
+           #probmat = probmat_init
+      )
+    }
+    
+    # write model:
+    model_func <- "
+    model{ #BEGIN MODEL
+	for (i in 1:N_all_gel){
+    n_vec[i] ~ dpois(Lambda)
+    
+    # alignment:
+    for (p in 1:n_vec[i]){Z0[lookup[i,p]] ~ dcat(probmat[])} 
+    Z[(lookup[i,1]):(lookup[i,n_vec[i]])] <- sort(Z0[(lookup[i,1]):(lookup[i,n_vec[i]])])
+    
+    Y_std[lookup[i,1]] ~ dnorm(mu[i,1],inv_sigmasq)T(lb[lookup[i,1]],ub[lookup[i,1]])
+    lb[lookup[i,1]] <- grid_lb[Z[lookup[i,1]]]
+    ub[lookup[i,1]] <- grid_ub[Z[lookup[i,1]]]
+    mu[i,1] <- S_grid[in_gel_id[i],Z[lookup[i,1]],gel_id[i]]
+    
+    for (p in 2:n_vec[i]){
+    Y_std[lookup[i,p]] ~ dnorm(mu[i,p],inv_sigmasq)T(lb[lookup[i,p]],ub[lookup[i,p]])
+    lb[lookup[i,p]] <- max(Y_std[lookup[i,p-1]],grid_lb[Z[lookup[i,p]]])
+    ub[lookup[i,p]] <- grid_ub[Z[lookup[i,p]]] 
+    mu[i,p] <- S_grid[in_gel_id[i],Z[lookup[i,p]],gel_id[i]]
+    }
+  }
+    
+    # prior for response rates in each subset (shared across gels):
+    for (j in 1:(L+2)){
+    probmat[j] ~ dnorm(0,inv_scale_mu0[j])T(0,)  # <--- not really sensitivity, but to be scaled to reflect lambda(t)/int lambda(u) du.
+    inv_scale_mu0[j] ~ dgamma(10E-4,10E-4)
+    }
+    Lambda ~ dgamma(0.1,0.1)
+    normalized_probmat <- probmat/sum(probmat)*Lambda
+    
+    for (g in 1:G){
+    # warping function:
+    #S_grid[1:19,1:(J+2),g] <- ZBu%*%beta[,,g]%*%t(ZBv)
+    S_grid[1:N_per_gel[g],1:(L+2),g] <- ZBu[1:N_per_gel[g],,g]%*%beta[,,g]%*%t(ZBv)
+    
+    #
+    # priors and parameters:
+    #
+    # prior for B-spline coefficients: first-order penaltY_std matrix:
+    for (s in 1:T1){ 
+    beta[s,1,g]  <- v_landmark[1]
+    beta[s,T2,g] <- v_landmark[L+2]
+    }
+    
+    ####### not used; just to make sure the first index is filled with number.
+    taubeta[1,g] <- 10000
+    flexible_select[1,g] <- 0
+    ind_flex_select[1,g] <- 2
+    taubeta_inv[1,g] <- 100
+    ########
+    for (t in 2:(T2-1)){
+    beta[1,t,g] ~ dnorm(beta[1,t-1,g]-beta_ident[t-1]+beta_ident[t],prec_beta1[g])T(beta[1,t-1,g],v_landmark[L+2])
+    for (s in 2:T1){
+    beta[s,t,g] ~ dnorm(beta[s-1,t,g],taubeta[t,g])T(beta[s,t-1,g],v_landmark[L+2]) # constraints.
+    }
+    # select flexible semiparametric regression:
+    taubeta0[t,1,g]    ~ dgamma(3,2)              # <-------- flexible fit.
+    taubeta_inv[t,g]   ~ dpar(1.5,1/400)          # <--------constant fit.
+    taubeta0[t,2,g]      <- pow(taubeta_inv[t,g],-1)
+    flexible_select[t,g] ~ dbern(p_flexible[g])
+    ind_flex_select[t,g] <- 2-flexible_select[t,g]
+    taubeta[t,g]         <- taubeta0[t,ind_flex_select[t,g],g] # controls the smoothness of the warping function at each v basis.
+    }
+    #prec_beta1 <- 1600  # controls the warping function prior for the first lane. depends on the number of knots.
+    
+    p_flexible[g] ~ dbeta(1,1) # fraction of flexible curves (out of total number of gel direction knots).
+    }
+    inv_sigmasq <- pow(3/h,2) # Measurement error beyond warping.
+    
+    #inv_sigmasq ~ dgamma(?,?)
+    sigma <- pow(inv_sigmasq,-0.5)
+    } # END OF MODEL.
+    " 
+  
+    model_bugfile_name <- "model_gel_dewarp.bug"
+    
+    filename <- file.path(mcmc_options$bugsmodel.dir,model_bugfile_name)
+    writeLines(model_func, filename)
+    
+    here <- environment()
+    in_data.list <- lapply(as.list(in_data),get, envir=here)
+    names(in_data.list) <- in_data
+    dump(names(in_data.list), append = FALSE, envir = here,
+         file = file.path(mcmc_options$result.folder,"jagsdata.txt"))
+    
+    load.module("glm")
+    gs <- R2jags::jags2(data   = in_data,                                           # <------------ Bayesian image dewarping.
+                        inits  = in_init,
+                        parameters.to.save = out_parameter,
+                        model.file = filename,
+                        working.directory = mcmc_options$result.folder,
+                        n.iter         = as.integer(mcmc_options$n.itermcmc),
+                        n.burnin       = as.integer(mcmc_options$n.burnin),
+                        n.thin         = as.integer(mcmc_options$n.thin),
+                        n.chains       = as.integer(mcmc_options$n.chains),
+                        DIC            = FALSE,
+                        clearWD        = FALSE#,              #<--- special to JAGS.
+    )
+  }
+
+
+
+
+
+
+
+

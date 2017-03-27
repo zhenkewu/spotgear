@@ -5,7 +5,7 @@
 \title{Piecewise linear warping after aligning the landmarks}
 \usage{
 pwl_after_dewarping(g_id, l_id, normalized_rf, dat_without_lane1, data_lcm_all,
-  zero_to_one_v_landmark)
+  zero_to_one_v_landmark, bugs_gel_id, bugs_in_gel_id, N_per_gel)
 }
 \arguments{
 \item{g_id}{Gel id}
@@ -23,6 +23,12 @@ molecules that would be observed in the serum samples.}
 and the number of columns being J+2 (J for intermediate landmarks and 2 end points)}
 
 \item{zero_to_one_v_landmark}{The landmark location on the zero to one scale.}
+
+\item{bugs_gel_id}{Starts from 1.}
+
+\item{bugs_in_gel_id}{Starts from 1 to say 19.}
+
+\item{N_per_gel}{Analyzed number of lanes per gel.}
 }
 \value{
 A list of two elements:

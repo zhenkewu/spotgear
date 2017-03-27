@@ -1,6 +1,6 @@
 # Define some variables shared within the package:
 package_env <- new.env(parent = emptyenv())
-package_env$fancy_xlab <- expression(paste("Normalized gel location (",t[j]^{(g)},")"))
+package_env$fancy_xlab <- expression(paste("Location on Gel (",t[j]^{(g)},")"))
 package_env$colors     <- rep(c('#a6cee3','#1f78b4','#b2df8a','#33a02c','#fb9a99','#e31a1c',
                               '#fdbf6f','#ff7f00','#cab2d6','#6a3d9a','#ffff99','#b15928'),2)
 package_env$ref_wt     <- c(21.5,31,45,66,97,116,200) # The known molecular weights for the reference lane.
