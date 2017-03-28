@@ -35,7 +35,7 @@ autoradiograms. In this package, we overcome these limitations by novel initial
 gel data preprocessing (Bayesian two dimensional image dewarping/registration) and then provide methods to
 detect disease subgroups.
 
-We recommend to use the spotgear 2d Bayesian dewarping method after GEA data pre-processing prior to statistical analysis. 
+We recommend to use the spotgear 2d Bayesian dewarping method for GEA data pre-processing prior to statistical analysis. 
 
 <div id='id-section2'/>
 
