@@ -6,7 +6,7 @@
 
 **License**: MIT + file LICENSE
 
-**References**: If you are using **spotgear** for the preprocessing gel electrophoresis autoradiographic imaging data, please cite the following paper:
+**References**: If you are using **spotgear** for the preprocessing of gel electrophoresis autoradiographic imaging data, please cite the following paper:
 
 |       | Citation     | Paper Link
 | -------------  | -------------  | -------------  |
