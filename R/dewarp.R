@@ -210,8 +210,6 @@ dewarp2d <-
     # get the number of lanes per gel (excluding Lane 1s):
     N_per_gel <- sapply(1:N_gel,function(i)  sum(unique(curr_dat[,c("gel_ID","lane_ID")])$gel_ID==analysis_id[i])) # <--- minus one for reference lane.
     
-   
-    
     #
     # for each gel construct bases for 2-dimensional warping functions:
     #
