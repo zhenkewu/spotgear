@@ -48,15 +48,16 @@ We recommend to use the spotgear 2d Bayesian dewarping method for GEA data pre-p
 
 ## 3. Visualization
 
-###Animation of Fitted Bayesian Dewarping Result
+### Animation of Fitted Bayesian Dewarping Result
 
 ![](inst/example_figure/animation.gif)
 
 **Figure 1**: Correction for smooth non-rigid gel deformation. Shown here are, for each gel batch, 19 serum lanes at 50 interior molecular weight grid points with large and small weights toward the left and right, respectively. Solid blue dots are detected peaks deviating from its true weight. Each detected peak is connected to a red triangle that represents the most likely actual molecular weight landmark. The black vertical curves together show the deformation, with each black vertical curve connecting locations with identical molecular weights. The curves are drawn for each grid point.
 
-###Heatmap of Aligned Gels
+### Heatmap of Aligned Gels
 
 ![](inst/example_figure/pwl_after_dewarping.png)
+
 
 **Figure 2**: Visualization of the *aligned* gels given a fitted warping function S. For each sample lane, given a set of peak-to-landmark alignment indicator, the dewarping model maps the observed peaks to the landmark locations. Assuming at least one peak is detected, we then perform piecewise linear compression or stretching anchoring at matched landmarks along with two endpoint landmarks. The approximation is in general slightly different from the smooth function S. One can view the Bayesian dewarping model based on landmarks as first estimating S using downsampled landmarks to encourage nearby peaks to be aligned. Once the peak-to-landmark indicators are estimated, we use them for obtaining the piecewise linear approximation to S. In this figure, we used *maximum a posteriori* estimates of the peak-to-landmark indicators to construct this approximation, which gives visually excellent vertical alignment of black bands. 
 ------
