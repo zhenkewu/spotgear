@@ -59,5 +59,8 @@ We recommend to use the spotgear 2d Bayesian dewarping method for GEA data pre-p
 ![](inst/example_figure/pwl_after_dewarping.png)
 
 
+
 **Figure 2**: Visualization of the *aligned* gels given a fitted warping function S. For each sample lane, given a set of peak-to-landmark alignment indicator, the dewarping model maps the observed peaks to the landmark locations. Assuming at least one peak is detected, we then perform piecewise linear compression or stretching anchoring at matched landmarks along with two endpoint landmarks. The approximation is in general slightly different from the smooth function S. One can view the Bayesian dewarping model based on landmarks as first estimating S using downsampled landmarks to encourage nearby peaks to be aligned. Once the peak-to-landmark indicators are estimated, we use them for obtaining the piecewise linear approximation to S. In this figure, we used *maximum a posteriori* estimates of the peak-to-landmark indicators to construct this approximation, which gives visually excellent vertical alignment of black bands. 
+
+
 ------
