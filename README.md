@@ -1,6 +1,5 @@
 # **spotgear**: Subset Profiling and Organizing Tools for Gel Electrophoresis Autoradiography in R
-### An R Package for Fitting Bayesian Two-Dimensional Image Dewarping Models and 
-Estimating Disease Subsets and Signatures
+### An R Package for Fitting Bayesian Two-Dimensional Image Dewarping Models andEstimating Disease Subsets and Signatures
 
 --------
 **Maintainer**: Zhenke Wu, zhenkewu@umich.edu
