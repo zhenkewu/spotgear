@@ -106,6 +106,9 @@ create_batch_aligned_data <- function(dat_binned_list,
 #' @param bugs_gel_id Starts from 1.
 #' @param bugs_in_gel_id Starts from 1 to say 19.
 #' @param N_per_gel Analyzed number of lanes per gel.
+#' @param Z_map a vector of length equal to total number of peaks detected; each element 
+#' represents the landmark a peak is aligned to
+#' @param n_vec A vector of length equal to the total lane number; each element is the number of peaks within a lane.
 #'
 #'
 #' @return A list of two elements:
@@ -117,7 +120,14 @@ create_batch_aligned_data <- function(dat_binned_list,
 #' }
 #' @export
 pwl_after_dewarping    <- function(g_id,l_id,normalized_rf,dat_without_lane1,data_lcm_all,
-                                   zero_to_one_v_landmark,bugs_gel_id,bugs_in_gel_id,N_per_gel){
+                                   zero_to_one_v_landmark,bugs_gel_id,bugs_in_gel_id,N_per_gel,
+                                   Z_map,n_vec){
+  g_id <- g
+  l_id <- l
+  bugs_gel_id <- s
+  bugs_in_gel_id <- l-1
+  dat_without_lane1 <- curr_dat
+  
   n_total_bins  <- length(normalized_rf)
   G             <- length(N_per_gel)
   ref           <- data_lcm_all[c(0,cumsum(N_per_gel)[-G])[bugs_gel_id]+bugs_in_gel_id,]
@@ -131,6 +141,22 @@ pwl_after_dewarping    <- function(g_id,l_id,normalized_rf,dat_without_lane1,dat
                      ifelse(max(ref_index)==n_total_bins,NA,n_total_bins))
   knots_query    <- knots_query[!is.na(knots_query)]
   
+  if (length(knots_base) < length(knots_query)){ # two observed peaks being aligned to identical landmark.
+    bugs_stacked_lane_id <- c(0,cumsum(N_per_gel)[-G])[bugs_gel_id]+bugs_in_gel_id
+    peak_to_landmark_vec_with_overlap <- Z_map[lookup[bugs_stacked_lane_id,1:n_vec[bugs_stacked_lane_id]]] # <- need n_vec, and Z_map.
+    for (lmk in unique(peak_to_landmark_vec_with_overlap)){
+       tmp_query     <- subset(dat_without_lane1,gel_ID==g_id & lane_ID==l_id)$peak_bin_index
+       ind_to_unique <- which(peak_to_landmark_vec_with_overlap==lmk)
+       tmp_query[ind_to_unique] <- floor(mean(tmp_query[ind_to_unique]))
+       knots_query <- unique(tmp_query)    
+    }
+    
+    knots_query   <- c(ifelse(min(ref_index)==1,NA,1),
+                       knots_query,
+                       ifelse(max(ref_index)==n_total_bins,NA,n_total_bins))
+    knots_query    <- knots_query[!is.na(knots_query)]
+    
+  }
   warped_ind    <- sapply(1:n_total_bins,pwl,knots_base,knots_query)
   make_list(ref_index,warped_ind)
 }
