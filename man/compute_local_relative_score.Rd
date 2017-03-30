@@ -14,7 +14,7 @@ compute_local_relative_score(dat_binned, half_width, lanes,
 
 \item{lanes}{The index of lanes to be analyzed}
 
-\item{elev_vec}{See the argument \code{elevation} in \code{\link{sign_score}}.}
+\item{elev_vec}{See the argument \code{elevation} in \code{\link{sign_score}}.Default 0.014.}
 }
 \value{
 a matrix of relative scores (nrow=number of bins, ncol=number of lanes analyzed)

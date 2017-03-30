@@ -109,7 +109,8 @@ create_batch_aligned_data <- function(dat_binned_list,
 #' @param Z_map a vector of length equal to total number of peaks detected; each element 
 #' represents the landmark a peak is aligned to
 #' @param n_vec A vector of length equal to the total lane number; each element is the number of peaks within a lane.
-#'
+#' @param lookup A matrix with no. of rows equal to sample size, no. of columns equal to maximum number
+#' of peaks per lane. The numbers indicate the no. of peaks appearing from all the lanes.
 #'
 #' @return A list of two elements:
 #' \itemize{
@@ -121,13 +122,13 @@ create_batch_aligned_data <- function(dat_binned_list,
 #' @export
 pwl_after_dewarping    <- function(g_id,l_id,normalized_rf,dat_without_lane1,data_lcm_all,
                                    zero_to_one_v_landmark,bugs_gel_id,bugs_in_gel_id,N_per_gel,
-                                   Z_map,n_vec){
-  g_id <- g
-  l_id <- l
-  bugs_gel_id <- s
-  bugs_in_gel_id <- l-1
-  dat_without_lane1 <- curr_dat
-  
+                                   Z_map,n_vec,lookup){
+  # g_id <- g
+  # l_id <- l
+  # bugs_gel_id <- s
+  # bugs_in_gel_id <- l-1
+  # dat_without_lane1 <- curr_dat
+  # 
   n_total_bins  <- length(normalized_rf)
   G             <- length(N_per_gel)
   ref           <- data_lcm_all[c(0,cumsum(N_per_gel)[-G])[bugs_gel_id]+bugs_in_gel_id,]

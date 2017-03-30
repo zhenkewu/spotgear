@@ -5,7 +5,8 @@
 \title{Piecewise linear warping after aligning the landmarks}
 \usage{
 pwl_after_dewarping(g_id, l_id, normalized_rf, dat_without_lane1, data_lcm_all,
-  zero_to_one_v_landmark, bugs_gel_id, bugs_in_gel_id, N_per_gel, Z_map, n_vec)
+  zero_to_one_v_landmark, bugs_gel_id, bugs_in_gel_id, N_per_gel, Z_map, n_vec,
+  lookup)
 }
 \arguments{
 \item{g_id}{Gel id}
@@ -34,6 +35,9 @@ and the number of columns being J+2 (J for intermediate landmarks and 2 end poin
 represents the landmark a peak is aligned to}
 
 \item{n_vec}{A vector of length equal to the total lane number; each element is the number of peaks within a lane.}
+
+\item{lookup}{A matrix with no. of rows equal to sample size, no. of columns equal to maximum number
+of peaks per lane. The numbers indicate the no. of peaks appearing from all the lanes.}
 }
 \value{
 A list of two elements:

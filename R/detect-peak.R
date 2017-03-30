@@ -61,7 +61,7 @@ sign_score <-
 #' @param dat_binned Binned autoradiointensity data
 #' @param half_width See \code{\link{edges}}
 #' @param lanes The index of lanes to be analyzed
-#' @param elev_vec  See the argument \code{elevation} in \code{\link{sign_score}}.
+#' @param elev_vec  See the argument \code{elevation} in \code{\link{sign_score}}.Default 0.014.
 #'
 #' @return a matrix of relative scores (nrow=number of bins, ncol=number of lanes analyzed)
 #' @export
@@ -94,6 +94,11 @@ compute_local_relative_score <- function(dat_binned,half_width,lanes,
 
 compute_score_mat_peak <- function(score_mat,score_thres,dat_binned,
                                    gap_considered_identical_peak=5){
+  
+  # score_mat <- score_mat_list[[s]]
+  # dat_binned <- dat_binned_list[[s]]
+  # gap_considered_identical_peak <- 5
+  
   n_g <- ncol(score_mat)
   score_mat_peak <- matrix(NA,nrow=nrow(dat_binned),ncol=n_g)
   for (lane in 1:n_g){
@@ -132,7 +137,9 @@ compute_score_mat_peak <- function(score_mat,score_thres,dat_binned,
 
     # print(starts)
     # print(ends)
-
+    duration <- ends-starts+1
+    starts <- starts[duration>=3]
+    ends <- ends[duration>=3]
     for (r in seq_along(starts)){
       local_max_ind <- c(starts[r]:ends[r])[which.max(dat_binned[starts[r]:ends[r],lane+2])]
       score_mat_peak[local_max_ind,lane] <- score_thres
