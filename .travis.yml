@@ -9,3 +9,5 @@ before_install:
   - sudo apt-get update
   - sudo apt-get install r-cran-rjags
 
+bioc_required: yes
+use_bioc: yes
