@@ -2,13 +2,13 @@ Package: spotgear
 Type: Package
 Title: Subset Profiling and Organizing Tools for Gel Electrophoresis
     Autoradiography in R
-Version: 0.6
-Date: 2017-4-3
+Version: 0.7
+Date: 2017-04-04
 Author: as.person(c(
     "Zhenke Wu <zhenkewu@umich.edu> [aut, cre]",
     "Scott Zeger <sz@jhu.edu> [aut]"
     ))
-Maintainer: <zhenkewu@umich.edu>
+Maintainer: Zhenke Wu <zhenkewu@umich.edu>
 Description: Autoimmune diseases, e.g., scleroderma, are human immune system’s
     responses to autoantigens in which the body produces specific autoantibodies
     that target these autoantigens but also cause tissue damage. The autoantibody
