@@ -20,4 +20,3 @@ per sample lane, and \code{sigma} for the standard deviation
 \description{
 Initial smoothing using the obtained raw intensities for all sample lanes in one gel
 }
-

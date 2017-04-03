@@ -65,4 +65,3 @@ Indentify the peaks based on the ridge list (returned by getRidge)
 in 2-D CWT coefficient matrix and estimated Signal to Noise Ratio
 (SNR)
 }
-

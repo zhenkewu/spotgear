@@ -54,4 +54,3 @@ information about the dewarping function. We downsample the gel, so that we only
 need to consider the dewarping results on the J=50 landmarks' dewarping results.
 NB: assumed that all gels have 19 non-reference lanes. Need to change otherwise.
 }
-

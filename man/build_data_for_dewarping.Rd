@@ -31,4 +31,3 @@ A data frame comprised of 5 elements:
 \description{
 Construct data frame that store all detected bands (NB: the result can be trimmed to exclude specific rows.)
 }
-

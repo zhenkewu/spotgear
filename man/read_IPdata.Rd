@@ -34,4 +34,3 @@ At least three columns are expected:
 Read autoradiographic intensities from multiple lanes in a single gel. NB: add
 specifics about the technology.
 }
-

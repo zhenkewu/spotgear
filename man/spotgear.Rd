@@ -28,10 +28,10 @@ gel data preprocessing (Bayesian two dimensional image dewarping/registration) a
 
 \code{\link{dewarp2d}}
 }
+
 \seealso{
 \itemize{
 \item \url{https://github.com/zhenkewu/spotgear} for the source code
 and system/software requirements to use \code{spotgear} for your data.
 }
 }
-

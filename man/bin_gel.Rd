@@ -20,4 +20,3 @@ belonging to the same bin. The first two columns are bin labels and equal-spaced
 \description{
 Force multiple gels to share identical bins
 }
-

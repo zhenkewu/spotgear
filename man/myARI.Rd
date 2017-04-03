@@ -18,4 +18,3 @@ of information (0 means perfect agreement)
 \description{
 Compare two partitions (could be of different lengths)
 }
-

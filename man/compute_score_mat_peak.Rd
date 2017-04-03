@@ -24,4 +24,3 @@ A matrix with \code{NA} and \code{score_thres}. Those entries equaling \code{sco
 \description{
 Given each contiguous peak candidate regions, find the bin that we call peak (aka band)
 }
-

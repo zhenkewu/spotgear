@@ -27,14 +27,15 @@ Imports:
     rjags(>= 4-6),
     R2jags(>= 0.5),
     coda(>= 0.16),
-    reshape2(>= 1.4),
+    reshape2(>= 1.4)
 Depends:
     R(>= 3.3)
 License: MIT + file LICENSE
 SystemRequirements: JAGS (>= 4.1.0) (http://mcmc-jags.sourceforge.net)
 Encoding: UTF-8
 LazyData: true
-RoxygenNote: 5.0.1
+RoxygenNote: 6.0.1
 Suggests: knitr,
-    rmarkdown
+    rmarkdown,
+    MassSpecWavelet
 VignetteBuilder: knitr
