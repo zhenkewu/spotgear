@@ -291,17 +291,32 @@ dewarp2d <-
     gel_id    <- as.numeric(curr_gel_lane[,1])
     in_gel_id <- c(unlist(sapply(N_per_gel,function(n) 1:n)))
     
-    # in_data:
+    # # in_data:
+    # in_data <- c("Y_std","N_all_gel","G","gel_id","in_gel_id","N_per_gel",
+    #              "n_vec","lookup","L","v_landmark","h",
+    #              "beta_ident","grid_lb","grid_ub","prec_beta1",
+    #              "ZBu","T1","ZBv","T2")
+    # 
+    # # out_parameter:
+    # out_parameter <- c("beta","Z","sigma",
+    #                    "taubeta",
+    #                    "probmat","Lambda","normalized_probmat",
+    #                    "flexible_select",
+    #                    "p_flexible"
+    # )
+    
+    # in_data: prec_beta1 unknown:
     in_data <- c("Y_std","N_all_gel","G","gel_id","in_gel_id","N_per_gel",
                  "n_vec","lookup","L","v_landmark","h",
-                 "beta_ident","grid_lb","grid_ub","prec_beta1",
+                 "beta_ident","grid_lb","grid_ub",
                  "ZBu","T1","ZBv","T2")
-    
+
     # out_parameter:
     out_parameter <- c("beta","Z","sigma",
                        "taubeta",
                        "probmat","Lambda","normalized_probmat",
                        "flexible_select",
+                       "prec_beta1",
                        "p_flexible"
     )
     
@@ -327,7 +342,7 @@ dewarp2d <-
     model_func <- "
     model{ #BEGIN MODEL
 	for (i in 1:N_all_gel){
-    n_vec[i] ~ dpois(Lambda)
+    n_vec[i] ~ dpois(Lambda[gel_id[i]])
     
     # alignment:
     for (p in 1:n_vec[i]){Z0[lookup[i,p]] ~ dcat(probmat[])} 
@@ -351,10 +366,11 @@ dewarp2d <-
     probmat[j] ~ dnorm(0,inv_scale_mu0[j])T(0,)  # <--- not really sensitivity, but to be scaled to reflect lambda(t)/int lambda(u) du.
     inv_scale_mu0[j] ~ dgamma(10E-4,10E-4)
     }
-    Lambda ~ dgamma(0.1,0.1)
-    normalized_probmat <- probmat/sum(probmat)*Lambda
+    #Lambda ~ dgamma(0.1,0.1)
+    normalized_probmat <- probmat/sum(probmat)
     
     for (g in 1:G){
+    Lambda[g] ~ dgamma(0.1,0.1)
     # warping function:
     #S_grid[1:19,1:(J+2),g] <- ZBu%*%beta[,,g]%*%t(ZBv)
     S_grid[1:N_per_gel[g],1:(L+2),g] <- ZBu[1:N_per_gel[g],,g]%*%beta[,,g]%*%t(ZBv)
@@ -388,6 +404,7 @@ dewarp2d <-
     taubeta[t,g]         <- taubeta0[t,ind_flex_select[t,g],g] # controls the smoothness of the warping function at each v basis.
     }
     #prec_beta1 <- 1600  # controls the warping function prior for the first lane. depends on the number of knots.
+    prec_beta1[g] ~ dpar(1.5,1/600)  # controls the warping function prior for the first lane. depends on the number of knots.
     
     p_flexible[g] ~ dbeta(1,1) # fraction of flexible curves (out of total number of gel direction knots).
     }

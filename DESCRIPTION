@@ -2,8 +2,8 @@ Package: spotgear
 Type: Package
 Title: Subset Profiling and Organizing Tools for Gel Electrophoresis
     Autoradiography in R
-Version: 0.5.2
-Date: 2017-03-30
+Version: 0.6
+Date: 2017-4-3
 Author: as.person(c(
     "Zhenke Wu <zhenkewu@umich.edu> [aut, cre]",
     "Scott Zeger <sz@jhu.edu> [aut]"
