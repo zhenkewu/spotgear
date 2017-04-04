@@ -24,4 +24,3 @@ A list of two elements:
 Generally performed before pattern recognition, because light molecules cannot
 be distinguished and hence clustered at the righ end in the experiment.
 }
-

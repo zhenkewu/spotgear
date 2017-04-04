@@ -2,13 +2,13 @@ Package: spotgear
 Type: Package
 Title: Subset Profiling and Organizing Tools for Gel Electrophoresis
     Autoradiography in R
-Version: 0.6
-Date: 2017-4-3
+Version: 0.7
+Date: 2017-04-04
 Author: as.person(c(
     "Zhenke Wu <zhenkewu@umich.edu> [aut, cre]",
     "Scott Zeger <sz@jhu.edu> [aut]"
     ))
-Maintainer: <zhenkewu@umich.edu>
+Maintainer: Zhenke Wu <zhenkewu@umich.edu>
 Description: Autoimmune diseases, e.g., scleroderma, are human immune system’s
     responses to autoantigens in which the body produces specific autoantibodies
     that target these autoantigens but also cause tissue damage. The autoantibody
@@ -27,14 +27,15 @@ Imports:
     rjags(>= 4-6),
     R2jags(>= 0.5),
     coda(>= 0.16),
-    reshape2(>= 1.4),
+    reshape2(>= 1.4)
 Depends:
     R(>= 3.3)
 License: MIT + file LICENSE
 SystemRequirements: JAGS (>= 4.1.0) (http://mcmc-jags.sourceforge.net)
 Encoding: UTF-8
 LazyData: true
-RoxygenNote: 5.0.1
+RoxygenNote: 6.0.1
 Suggests: knitr,
-    rmarkdown
+    rmarkdown,
+    MassSpecWavelet
 VignetteBuilder: knitr

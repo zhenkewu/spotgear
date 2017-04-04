@@ -22,4 +22,3 @@ a matrix of relative scores (nrow=number of bins, ncol=number of lanes analyzed)
 \description{
 Compute using sign_score for each lane to find peak candidate regions
 }
-

@@ -19,4 +19,3 @@ A heatmap visualizing the autoradiointensity data obtained from a single gel.
 \description{
 Make grayscale heatmap for one gel
 }
-

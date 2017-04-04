@@ -20,4 +20,3 @@ The index in the query lane that is to be aligned to the i-th bin in the referen
 Do piecewise stretch and compression by matching knots_query to knots_ref, using
 the latter as anchors. The entire stretch and compression is done by \code{\link{correct_batch_effect_by_ref}}.
 }
-
