@@ -4,7 +4,7 @@ Title: Subset Profiling and Organizing Tools for Gel Electrophoresis
     Autoradiography in R
 Version: 0.7
 Date: 2017-04-04
-Author: as.person(c(
+Authors@R: as.person(c(
     "Zhenke Wu <zhenkewu@umich.edu> [aut, cre]",
     "Scott Zeger <sz@jhu.edu> [aut]"
     ))
