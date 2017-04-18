@@ -34,4 +34,3 @@ that corresponds for reference index \code{i}.
 Correct the error that the same sample with known molecules can show up at
 slightly different locations when autoradiographed on multiple gels.
 }
-

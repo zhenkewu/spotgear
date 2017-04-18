@@ -38,4 +38,3 @@ and fits the model. Features:
 If running JAGS on windows, please go to control panel to add the directory to
 jags into ENVIRONMENTAL VARIABLE!
 }
-

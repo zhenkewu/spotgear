@@ -21,4 +21,3 @@ A vector of scores, one for each intensity value in a bin
 Sign calculation for each bin in the binned intensity data. It is used
 to define contiguous regions in which we will find a peak.
 }
-

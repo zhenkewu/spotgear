@@ -26,4 +26,3 @@ hand-picked bands
 \description{
 Can be used for binned data
 }
-

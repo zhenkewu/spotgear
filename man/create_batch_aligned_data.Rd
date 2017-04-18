@@ -27,4 +27,3 @@ We can name the results \code{dat_binned_batch_aligned_list}
 \description{
 Create the binned data after piecewise linear warping
 }
-
