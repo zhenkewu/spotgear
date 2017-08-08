@@ -13,7 +13,7 @@
 
 |       | Citation     | Paper Link
 | -------------  | -------------  | -------------  |
-| spotgear for GEA data    | Wu Z, Casciola-Rosen L, Shah, AA, Rosen A, Zeger SL (2017+). **Estimating AutoAntibody Signatures to Detect Autoimmune Disease Patient Subsets**.   |[Link](http://biorxiv.org/content/early/2017/04/18/128199)| 
+| spotgear for GEA data    | Wu Z, Casciola-Rosen L, Shah, AA, Rosen A, Zeger SL (2017+). **Estimating AutoAntibody Signatures to Detect Autoimmune Disease Patient Subsets**.   |[Link](http://www.biorxiv.org/content/early/2017/08/04/128199)| 
 
 ## Table of content
 - [1. Introduction](#id-section1)
