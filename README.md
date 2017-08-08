@@ -1,5 +1,5 @@
 # **spotgear**: Subset Profiling and Organizing Tools for Gel Electrophoresis Autoradiography in R
-### An R Package for Fitting Bayesian Two-Dimensional Image Dewarping Models andEstimating Disease Subsets and Signatures
+### An R Package for Fitting Bayesian Two-Dimensional Image Dewarping Models and Estimating Disease Subsets and Signatures
 
 [![Travis-CI Build Status](https://travis-ci.org/muschellij2/spotgear.svg?branch=master)](https://travis-ci.org/muschellij2/spotgear)
 [![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/muschellij2/spotgear?branch=master&svg=true)](https://ci.appveyor.com/project/muschellij2/spotgear)
