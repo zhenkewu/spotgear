@@ -4,19 +4,17 @@ language: R
 sudo: required
 cache: packages
 
-r_binary_packages: 
-  - r2jags 
-  - rjags
-# before_install:
-#   - wget -O jags.tar.gz https://ayera.dl.sourceforge.net/project/mcmc-jags/JAGS/4.x/Source/JAGS-4.3.0.tar.gz
-#   - jags_dir=`tar -tf jags.tar.gz | head -n 1`
-#   - tar -xvf jags.tar.gz 
-#   - cd ${jags_dir}
-#   - ./configure && sudo make && sudo make install  
-#   - Rscript -e 'install.packages("rjags", configure.args="--with-jags-include='${prefix}'/include/JAGS --with-jags-lib='${prefix}'lib/JAGS --with-jags-modules='${prefix}'/JAGS/modules")'  
-#   - sudo add-apt-repository ppa:marutter/rrutter -y
-#   - sudo apt-get update
-#   - sudo apt-get install r-cran-r2jags
+
+before_install:
+  - wget -O jags.tar.gz https://ayera.dl.sourceforge.net/project/mcmc-jags/JAGS/4.x/Source/JAGS-4.3.0.tar.gz
+  - jags_dir=`tar -tf jags.tar.gz | head -n 1`
+  - tar -xvf jags.tar.gz 
+  - cd ${jags_dir}
+  - ./configure && sudo make && sudo make install  
+  - Rscript -e 'install.packages("rjags", configure.args="--with-jags-include='${prefix}'/include/JAGS --with-jags-lib='${prefix}'lib/JAGS --with-jags-modules='${prefix}'/JAGS/modules")'  
+  - sudo add-apt-repository ppa:marutter/rrutter -y
+  - sudo apt-get update
+  - sudo apt-get install r-cran-r2jags
 
 
 bioc_required: yes
