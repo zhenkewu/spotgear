@@ -4,7 +4,9 @@ language: R
 sudo: required
 cache: packages
 
-r_binary_packages: r2jags rjags
+r_binary_packages: 
+  - r2jags 
+  - rjags
 # before_install:
 #   - wget -O jags.tar.gz https://ayera.dl.sourceforge.net/project/mcmc-jags/JAGS/4.x/Source/JAGS-4.3.0.tar.gz
 #   - jags_dir=`tar -tf jags.tar.gz | head -n 1`
