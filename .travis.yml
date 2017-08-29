@@ -5,9 +5,15 @@ sudo: required
 cache: packages
 
 before_install:
+  - wget -O jags.tar.gz https://ayera.dl.sourceforge.net/project/mcmc-jags/JAGS/4.x/Source/JAGS-4.3.0.tar.gz
+  - jags_dir=`tar -tf jags.tar.gz | head -n 1`
+  - tar -xvf jags.tar.gz 
+  - cd ${jags_dir}
+  - ./configure && make && make install  
   - sudo add-apt-repository ppa:marutter/rrutter -y
   - sudo apt-get update
   - sudo apt-get install r-cran-rjags r-cran-r2jags
+
 
 bioc_required: yes
 use_bioc: yes
