@@ -9,10 +9,13 @@ before_install:
   - jags_dir=`tar -tf jags.tar.gz | head -n 1`
   - tar -xvf jags.tar.gz 
   - cd ${jags_dir}
-  - ./configure && make && make install  
+  - prefix="${PWD}/tmp_local"
+  - mkdir -p ${prefix}
+  - ./configure --prefix=${prefix} && make && make install  
+  - Rscript -e 'install.packages("rjags", configure.args="--with-jags-include='${prefix}'/include/JAGS --with-jags-lib='${prefix}'lib/JAGS --with-jags-modules='${prefix}'/JAGS/modules")'  
   - sudo add-apt-repository ppa:marutter/rrutter -y
   - sudo apt-get update
-  - sudo apt-get install r-cran-rjags r-cran-r2jags
+  - sudo apt-get install r-cran-r2jags
 
 
 bioc_required: yes
