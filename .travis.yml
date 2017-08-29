@@ -7,7 +7,7 @@ cache: packages
 before_install:
   - sudo add-apt-repository ppa:marutter/rrutter -y
   - sudo apt-get update
-  - sudo apt-get install r-cran-rjags
+  - sudo apt-get install r-cran-rjags r-cran-r2jags
 
 bioc_required: yes
 use_bioc: yes
