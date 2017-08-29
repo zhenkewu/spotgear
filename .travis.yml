@@ -15,10 +15,6 @@ before_install:
   - ./configure --prefix=/usr && sudo make && sudo make install  
   - cd ../ 
   - sudo rm -rf ${jags_dir}
-  - sudo add-apt-repository ppa:marutter/rrutter -y
-  - sudo apt-get update
-  - sudo apt-get install r-cran-r2jags r-cran-rjags
-
 
 bioc_required: yes
 use_bioc: yes
