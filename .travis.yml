@@ -4,10 +4,20 @@ language: R
 sudo: required
 cache: packages
 
+os:
+  - linux
+  - osx
+
+r_binary_packages:
+  - R2jags
+  - rjags
+
 before_install:
-  - sudo add-apt-repository ppa:marutter/rrutter -y
-  - sudo apt-get update
-  - sudo apt-get install r-cran-rjags
+  - fname=travis_helpers.sh
+  - wget -O ${fname} http://bit.ly/travis_helpers
+  - cat ${fname}; source ${fname}; rm ${fname}  
+  - cat DESCRIPTION
+  - jags_install  
 
 bioc_required: yes
 use_bioc: yes
