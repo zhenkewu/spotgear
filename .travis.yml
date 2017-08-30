@@ -9,7 +9,7 @@ os:
   - osx
 
 r_binary_packages:
-  - r2jags
+  - R2jags
   - rjags
 
 before_install:
