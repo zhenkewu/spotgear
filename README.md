@@ -45,7 +45,7 @@ We recommend to use the spotgear 2d Bayesian dewarping method for GEA data pre-p
 ## 2. Software
 
 **Tutorials, instructions and examples for using spotgear:**
-- [R implementation; to come]()
+- [R code examples; to come]()
 
 <div id='id-section2'/>
 
