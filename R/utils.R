@@ -90,12 +90,13 @@ myARI <- function (x, y) {
 
 #' This function convert ids: (will need to move to the spotgear package.)
 #'
-#' @param N_g_vec 
-#' @param set_id 
-#' @param lane_id 
-#' @param include_orig_lane1 
+#' @param N_g_vec A vector of integers representing the number of lanes on each gel
+#' @param set_id a vector of set ids
+#' @param lane_id a vector of lane ids (has the same length as set_id)
+#' @param include_orig_lane1 Default to \code{TRUE} - include lane 1 while
+#' converting; Otherwise set to \code{FALSE}.
 #'
-#' @return
+#' @return A vector of ids upon stacking lanes on one another
 #' @export
 #'
 #' @examples

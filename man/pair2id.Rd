@@ -7,13 +7,17 @@
 pair2id(N_g_vec, set_id, lane_id, include_orig_lane1 = TRUE)
 }
 \arguments{
-\item{N_g_vec}{}
+\item{N_g_vec}{A vector of integers representing the number of lanes on each gel}
 
-\item{set_id}{}
+\item{set_id}{a vector of set ids}
 
-\item{lane_id}{}
+\item{lane_id}{a vector of lane ids (has the same length as set_id)}
 
-\item{include_orig_lane1}{}
+\item{include_orig_lane1}{Default to \code{TRUE} - include lane 1 while
+converting; Otherwise set to \code{FALSE}.}
+}
+\value{
+A vector of ids upon stacking lanes on one another
 }
 \description{
 This function convert ids: (will need to move to the spotgear package.)
