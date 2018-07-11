@@ -264,7 +264,7 @@ dewarp2d <-
     
     # horizontal:
     T2 <- 10  # <-- no. of bases in "gel" direction.
-    L  <- 100  # <-- no. of interior landmarks.
+    L  <- 50  # <-- no. of interior landmarks.
     Y_std       <- (Y-mean(curr_dat$Y))/sd(curr_dat$Y) # <-- horizontal standardization.
     leftend_std <- (0-mean(curr_dat$Y))/sd(curr_dat$Y)
     rightend_std <- (1-mean(curr_dat$Y))/sd(curr_dat$Y)
@@ -277,6 +277,7 @@ dewarp2d <-
     # get coefficients from identical transformation:
     ident_fit  <- lm(v_landmark~-1+ZBv)
     beta_ident <- ident_fit$coef
+    attr(beta_ident,"names") <- NULL
     
     h          <- diff(v_landmark)[1] # <- difference in distance between neighboring grid points.
     
