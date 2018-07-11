@@ -49,13 +49,14 @@ We recommend to use the spotgear 2d Bayesian dewarping method for GEA data pre-p
 
 ## 2. Software
 
-
 Installation
 --------------
 ```r
 # install.packages("devtools",repos="https://cloud.r-project.org")
 devtools::install_github("zhenkewu/spotgear")
 ```
+
+JAGS (Just Another Gibbs Sampler). Currently the package works the best for 4.2.0. There exist issues with 4.3.0 while allocating nodes in a graphical model for dewarping image (`dewarp2d()`).
 
 **Tutorials, instructions and examples for using spotgear:**
 - [R code examples; to come]()
