@@ -14,7 +14,7 @@ install:
 
 environment:
   global:
-    WARNINGS_ARE_ERORRS: 1
+    WARNINGS_ARE_ERRORS: 1
 
 build_script:
   - ps: (new-object net.webclient).DownloadFile('https://sourceforge.net/projects/mcmc-jags/files/JAGS/4.x/Windows/JAGS-4.2.0-Rtools33.exe', 'C:\projects\JAGS-4.2.0.exe')

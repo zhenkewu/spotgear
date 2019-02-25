@@ -5,10 +5,10 @@
 \title{Identify peaks based on the ridges in 2-D CWT coefficient matrix}
 \usage{
 spotgear_identifyMajorPeaks(ms, ridgeList, wCoefs,
-  scales = as.numeric(colnames(wCoefs)), SNR.Th = 3, peakScaleRange = c(5,
-  64), ridgeLength = 32, nearbyPeak = TRUE, nearbyWinSize = 100,
-  winSize.noise = 10, SNR.method = "quantile", minNoiseLevel = 0.001,
-  shape_ratio = 0.01, minPeakArea = 0.05)
+  scales = as.numeric(colnames(wCoefs)), SNR.Th = 3,
+  peakScaleRange = c(5, 64), ridgeLength = 32, nearbyPeak = TRUE,
+  nearbyWinSize = 100, winSize.noise = 10, SNR.method = "quantile",
+  minNoiseLevel = 0.001, shape_ratio = 0.01, minPeakArea = 0.05)
 }
 \arguments{
 \item{ms}{The autoradiointensity data}
@@ -54,14 +54,14 @@ to form the basis for signature estimation in the Bayesian clustering model.
 \item \code{peakCenterIndex}	 The indexes of peak centers, which correspond to the maximum on the ridge. peakCenterIndex includes all the peaks, not just the identified major peaks.
 \item \code{peakCenterValue} The CWT coefficients (the maximum on the ridge) corresponding to peakCenterIndex
 \item \code{peakSNR} The SNR of the peak, which is the ratio of peakCenterValue and noise level
-\item \code{peakScale} The estimated scale of the peak, which corresponds to the peakCenerIndex
+\item \code{peakScale} The estimated scale of the peak, which corresponds to the \code{peakCenterIndex}
 \item \code{potentialPeakIndex} The indexes of all potential peaks, which satisfy all requirements of a peak without considering its SNR. Useful, if you want to change to a lower SNR threshold later.
 \item \code{allPeakIndex} The indexes of all the peaks, whose order is the same as peakCenterIndex, peakCenterValue, peakSNR and peakScale.
 }
 All of these return elements have peak names, which are the same as the corresponding peak ridges. see getRidge for details.
 }
 \description{
-Indentify the peaks based on the ridge list (returned by getRidge)
+Identify the peaks based on the ridge list (returned by getRidge)
 in 2-D CWT coefficient matrix and estimated Signal to Noise Ratio
 (SNR)
 }

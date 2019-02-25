@@ -2,14 +2,35 @@ Package: spotgear
 Type: Package
 Title: Subset Profiling and Organizing Tools for Gel Electrophoresis
     Autoradiography in R
-Version: 1.0.1.0001
-Date: 2018-07-12
-Authors@R: as.person(c(
-    "Zhenke Wu <zhenkewu@umich.edu> [aut, cre]",
-    "Scott Zeger <sz@jhu.edu> [aut]"
-    ))
-Maintainer: Zhenke Wu <zhenkewu@umich.edu>
-Description: In many diseases, the targets of autoantibodies are incompletely defined. Although the technologies for autoantibody discovery have advanced dramatically over the past decade, each of these techniques generates hundreds of possibilities, which are onerous and expensive to validate. We set out to establish a method to greatly simplify autoantibody discovery, using a pre-filtering step to define subgroups with similar specificities based on migration of radiolabeled, immunoprecipitated proteins on sodium dodecyl sulfate (SDS) gels and autoradiography [Gel Electrophoresis and band detection on Autoradiograms (GEA)]. Human recognition of patterns is not optimal when the patterns are complex or scattered across many samples. Multiple sources of errors - including irrelevant intensity differences and warping of gels - have challenged automation of pattern discovery from autoradiograms. In this package, we address these limitations using a Bayesian hierarchical model with shrinkage priors for pattern alignment and spatial dewarping. The Bayesian model combines information from multiple gel sets and corrects spatial warping for coherent estimation of autoantibody signatures defined by presence or absence of a grid of landmark proteins. The pre-processing method creates more clearly separated clusters and improves the accuracy of autoantibody subset detection via hierarchical clustering.
+Version: 1.0.2
+Date: 2019-02-25
+Authors@R: c(
+    person("Zhenke", "Wu", email = "zhenkewu@umich.edu", role = c("aut", "cre")),
+    person("Scott", "Zeger", email = "sz@jhu.edu", role = "aut"),
+    person("John", "Muschelli", email="muschellij2@gmail.com", role="ctb", 
+    comment = c(ORCID = "0000-0001-6469-1750"))
+    )
+Description: In many diseases, the targets of autoantibodies are incompletely 
+    defined. Although the technologies for autoantibody discovery have 
+    advanced dramatically over the past decade, each of these techniques 
+    generates hundreds of possibilities, which are onerous and expensive to 
+    validate. We set out to establish a method to greatly simplify 
+    autoantibody discovery, using a pre-filtering step to define subgroups 
+    with similar specificities based on migration of radiolabeled, 
+    immunoprecipitated proteins on sodium dodecyl sulfate (SDS) gels and 
+    autoradiography [Gel Electrophoresis and band detection on 
+    Autoradiograms (GEA)]. Human recognition of patterns is not optimal 
+    when the patterns are complex or scattered across many samples. 
+    Multiple sources of errors - including irrelevant intensity differences 
+    and warping of gels - have challenged automation of pattern discovery 
+    from autoradiograms. In this package, we address these limitations using 
+    a Bayesian hierarchical model with shrinkage priors for pattern alignment 
+    and spatial dewarping. The Bayesian model combines information from 
+    multiple gel sets and corrects spatial warping for coherent estimation 
+    of autoantibody signatures defined by presence or absence of a grid of 
+    landmark proteins. The pre-processing method creates more clearly 
+    separated clusters and improves the accuracy of autoantibody subset 
+    detection via hierarchical clustering.
 Imports:
     msir(>= 1.3),
     rjags(>= 4-6),
@@ -20,10 +41,10 @@ Depends:
     R(>= 3.3)
 biocViews: 
 License: MIT + file LICENSE
-SystemRequirements: JAGS (>= 4.1.0) (http://mcmc-jags.sourceforge.net)
+SystemRequirements: jags
 Encoding: UTF-8
 LazyData: true
-RoxygenNote: 6.0.1.9000
+RoxygenNote: 6.1.1
 Suggests: knitr,
     rmarkdown,
     MassSpecWavelet

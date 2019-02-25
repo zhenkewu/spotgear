@@ -7,7 +7,7 @@
 build_data_for_dewarping(score_mat_list, analysis_id, rf_grid, N_g_vec)
 }
 \arguments{
-\item{score_mat_list}{A list of matrices. Each matrxi has B rows and N_g columns. NA means non-peaks, a number,
+\item{score_mat_list}{A list of matrices. Each matrix has B rows and N_g columns. NA means non-peaks, a number,
 usually 3, represents peaks.}
 
 \item{analysis_id}{choose the gels in this analysis; user's choice.}
@@ -20,9 +20,9 @@ for each gel with the name being the original ID before being subset by analysis
 \value{
 A data frame comprised of 5 elements:
 \itemize{
-\item \code{gel_ID} 
+\item \code{gel_ID}
 \item \code{lane_ID}
-\item \code{band_ID} 
+\item \code{band_ID}
 \item \code{Y} Location on Gel for the peaks
 \item \code{peak_bin_index} The bin index for the peaks
 \item \code{lane_ID_stacked} cumulative counts.

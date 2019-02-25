@@ -4,10 +4,10 @@
 \name{spotgear}
 \alias{spotgear}
 \alias{spotgear-package}
-\title{spotgear: \strong{S}ubset \strong{P}rofiling and \strong{O}rganizing \strong{T}ools 
+\title{spotgear: \strong{S}ubset \strong{P}rofiling and \strong{O}rganizing \strong{T}ools
 for \strong{G}el \strong{E}lectrophoresis \strong{A}utoradiography in \strong{R}}
 \description{
-An R Package for Fitting Bayesian Two-Dimensional Image Dewarping Models and 
+An R Package for Fitting Bayesian Two-Dimensional Image Dewarping Models and
 Estimating Disease Subsets and Signatures
 }
 \details{
@@ -18,8 +18,8 @@ composition is strikingly different among patients, as indicated by the many
 different radiolabeled patterns obtained from the mass-spectrometry-based
 technology - gel electrophoresis autoradiograms (GEA). Human recognition of
 patterns is not optimal when the patterns are composite/complex, or patterns
-are scattered across a large number of sam- ples. However, multiple sources of
-error (including irrelevant intensity differences across gels and warping of 
+are scattered across a large number of samples. However, multiple sources of
+error (including irrelevant intensity differences across gels and warping of
 the gels) have traditionally precluded automation of pattern discovery using
 autoradiograms. In this package, we overcome these limitations by novel initial
 gel data preprocessing (Bayesian two dimensional image dewarping/registration) and then provide methods to

@@ -18,7 +18,7 @@ parameter \code{i})}
 A vector of length two, representing the left and right interval end points
 }
 \description{
-Centered at the i-th bin, find the bin hald_width away to the left and to the right;
+Centered at the i-th bin, find the bin half_width away to the left and to the right;
 Truncate at the 1st or the biggest bin when hitting the boundary. Essential
 for evaluating if a bin is likely to be the location of a peak (aka band)
 }

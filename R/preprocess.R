@@ -3,9 +3,9 @@
 #' Initial smoothing using the obtained raw intensities for all sample lanes in one gel
 #'
 #' @param dat_raw Raw data obtained from \code{\link{read_IPdata}}. First column represents
-#' a equal-spaced grid over 0 and 1; Other columns record intensity values obtained from all 
+#' a equal-spaced grid over 0 and 1; Other columns record intensity values obtained from all
 #' the tested sample lanes.
-#' @param span The parameter tha controls the degree of smoothing. See \code{\link[stats]{loess}}
+#' @param span The parameter that controls the degree of smoothing. See \code{\link[stats]{loess}}
 #'
 #' @return A list comprising two elements, \code{res} for smoothed intensities, one column
 #' per sample lane, and \code{sigma} for the standard deviation
@@ -74,36 +74,36 @@ crop_end <- function(dat_binned,percent=4.4,bp){
 
 
 #' Create data for Bayesian 2D dewarping
-#' 
+#'
 #' Construct data frame that store all detected bands (NB: the result can be trimmed to exclude specific rows.)
-#' 
-#' @param score_mat_list A list of matrices. Each matrxi has B rows and N_g columns. NA means non-peaks, a number,
+#'
+#' @param score_mat_list A list of matrices. Each matrix has B rows and N_g columns. NA means non-peaks, a number,
 #' usually 3, represents peaks.
 #' @param analysis_id choose the gels in this analysis; user's choice.
 #' @param rf_grid A vector of length B (=670) equal-spaced grid from 0 to 1.
 #' @param N_g_vec A named numeric vector showing the number of lanes (incl. Lane 1s)
 #'   for each gel with the name being the original ID before being subset by analysis_id.
-#' 
+#'
 #' @return A data frame comprised of 5 elements:
 #' \itemize{
-#' \item \code{gel_ID} 
+#' \item \code{gel_ID}
 #' \item \code{lane_ID}
-#' \item \code{band_ID} 
+#' \item \code{band_ID}
 #' \item \code{Y} Location on Gel for the peaks
 #' \item \code{peak_bin_index} The bin index for the peaks
 #' \item \code{lane_ID_stacked} cumulative counts.
 #' }
-#' 
-#' 
+#'
+#'
 #' @export
 build_data_for_dewarping <- function(score_mat_list,analysis_id,rf_grid,N_g_vec){
   peak_ind    <- apply(do.call(cbind,score_mat_list[analysis_id]),2,
                        function(v) which(!is.na(v))) # <- find the bin number for peaks.
   Y          <- rf_grid[unlist(peak_ind)]   # <-- normalized location for a peak.
-  
+
   J_vec    <- unlist(lapply(peak_ind,length)) # no. of peaks per lane. Length is sum(n_g_vec). w/ lane 1.
   n_g_vec  <- N_g_vec[analysis_id] # no. of lanes per gel, w/ lane 1
-  
+
   lane_ID_stacked   <- rep(1:length(J_vec),J_vec) # <----- temporary ID for serum lane, repeated for peaks in the same lane.
   gel_ID     <- as.factor(rep(as.numeric(names(n_g_vec)),times=n_g_vec)[lane_ID_stacked]) # <-- ID for gel.
   band_ID    <- unlist(sapply(1:length(J_vec),function(s) {
@@ -113,7 +113,7 @@ build_data_for_dewarping <- function(score_mat_list,analysis_id,rf_grid,N_g_vec)
     1:(J_vec[s])
     })) # <--- ID for autoantibody bands.
   lane_ID    <- lane_ID_stacked-c(0,cumsum(n_g_vec)[-length(analysis_id)])[as.numeric(gel_ID)]
-  
+
   data.frame(gel_ID    = gel_ID,
              lane_ID   = lane_ID,
              band_ID   = band_ID,

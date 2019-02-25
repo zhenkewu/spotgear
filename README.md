@@ -36,7 +36,7 @@ composition is strikingly different among patients, as indicated by the many
 different radiolabeled patterns obtained from the mass-spectrometry-based
 technology - gel electrophoresis autoradiograms (GEA). Human recognition of
 patterns is not optimal when the patterns are composite/complex, or patterns
-are scattered across a large number of sam- ples. However, multiple sources of
+are scattered across a large number of samples. However, multiple sources of
 error (including irrelevant intensity differences across gels and warping of
 the gels) have traditionally precluded automation of pattern discovery using
 autoradiograms. In this package, we overcome these limitations by novel initial

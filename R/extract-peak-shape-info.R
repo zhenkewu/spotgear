@@ -1,6 +1,6 @@
 #' Identify peaks based on the ridges in 2-D CWT coefficient matrix
 #'
-#' Indentify the peaks based on the ridge list (returned by getRidge)
+#' Identify the peaks based on the ridge list (returned by getRidge)
 #' in 2-D CWT coefficient matrix and estimated Signal to Noise Ratio
 #' (SNR)
 #'
@@ -34,7 +34,7 @@
 #' \item \code{peakCenterIndex}	 The indexes of peak centers, which correspond to the maximum on the ridge. peakCenterIndex includes all the peaks, not just the identified major peaks.
 #' \item \code{peakCenterValue} The CWT coefficients (the maximum on the ridge) corresponding to peakCenterIndex
 #' \item \code{peakSNR} The SNR of the peak, which is the ratio of peakCenterValue and noise level
-#' \item \code{peakScale} The estimated scale of the peak, which corresponds to the peakCenerIndex
+#' \item \code{peakScale} The estimated scale of the peak, which corresponds to the \code{peakCenterIndex}
 #' \item \code{potentialPeakIndex} The indexes of all potential peaks, which satisfy all requirements of a peak without considering its SNR. Useful, if you want to change to a lower SNR threshold later.
 #' \item \code{allPeakIndex} The indexes of all the peaks, whose order is the same as peakCenterIndex, peakCenterValue, peakSNR and peakScale.
 #' }

@@ -11,7 +11,7 @@ correct_batch_effect_by_ref(dat_binned_query, dat_binned_ref,
 \item{dat_binned_query}{The binned data to be compressed or stretched towards the reference}
 
 \item{dat_binned_ref}{The binned data to be aligned to. It is usually arbitrarily chosen
-or the one least visually warped (could be very subjective). We sugguest in one particular
+or the one least visually warped (could be very subjective). We suggest in one particular
 analysis, fix this data to be one specific gel.}
 
 \item{peak_ind_mat_query}{A matrix of values, with the first-column entries that equal \code{score_thres} considered
@@ -27,7 +27,7 @@ to be aligned to.}
 \value{
 A list of two elements, the first is the vector of break points at reference
 peak locations (large to small; NB:check this), the second is a vector of the same length
-as the legnth of reference lane, with each element \code{warped_ind[i]} being the index in the query lane
+as the length of reference lane, with each element \code{warped_ind[i]} being the index in the query lane
 that corresponds for reference index \code{i}.
 }
 \description{

@@ -9,7 +9,7 @@ dewarp2d(data_dewarp, mcmc_options)
 \arguments{
 \item{data_dewarp}{Data frame with columns: gel_ID (true id), lane_ID (1 to say 20, 1 will be removed),
 band_ID (counts within each lane), Y (t-scale location of peaks), peak_bin_index (index of the bin corresponding
-to the peaks; requires common binning across images), lane_ID_stacked (cummulative lane number upon stacking
+to the peaks; requires common binning across images), lane_ID_stacked (cumulative lane number upon stacking
 gels one-by-one; mainly for plotting).}
 
 \item{mcmc_options}{A list of Markov chain Monte Carlo (MCMC) options.
@@ -31,8 +31,8 @@ BUGS fit results.
 Fit Bayesian 2D image dewarping models
 }
 \details{
-This function prepares data, specifies hyperparameters in priors, 
-initializes the posterior sampling chain, writes the model file (for JAGS syntax), 
+This function prepares data, specifies hyperparameters in priors,
+initializes the posterior sampling chain, writes the model file (for JAGS syntax),
 and fits the model. Features:
 
 If running JAGS on windows, please go to control panel to add the directory to
