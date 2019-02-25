@@ -18,7 +18,7 @@ muschellij2 Badges:
 
 |       | Citation     | Paper Link
 | -------------  | -------------  | -------------  |
-| spotgear for GEA data    | Wu Z, Casciola-Rosen L, Shah, AA, Rosen A, Zeger SL (2017+). **Estimating AutoAntibody Signatures to Detect Autoimmune Disease Patient Subsets**.   |[Link](http://www.biorxiv.org/content/early/2017/08/04/128199)| 
+| spotgear for GEA data    | Wu Z, Casciola-Rosen L, Shah, AA, Rosen A, Zeger SL (2017+). **Estimating AutoAntibody Signatures to Detect Autoimmune Disease Patient Subsets**.   |[Link](https://academic.oup.com/biostatistics/advance-article-abstract/doi/10.1093/biostatistics/kxx061/4622596)| 
 
 ## Table of content
 - [1. Introduction](#id-section1)
@@ -49,8 +49,19 @@ We recommend to use the spotgear 2d Bayesian dewarping method for GEA data pre-p
 
 ## 2. Software
 
+Installation
+--------------
+```r
+# install.packages("devtools",repos="https://cloud.r-project.org")
+devtools::install_github("zhenkewu/spotgear")
+```
+
+JAGS (Just Another Gibbs Sampler). Currently the package works the best for 4.2.0. There exist issues with 4.3.0 while allocating nodes in a graphical model for dewarping image (`dewarp2d()`).
+
 **Tutorials, instructions and examples for using spotgear:**
 - [R code examples; to come]()
+
+
 
 <div id='id-section2'/>
 
