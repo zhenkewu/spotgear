@@ -1,6 +1,6 @@
 #' Get the two-sided end points
 #'
-#' Centered at the i-th bin, find the bin hald_width away to the left and to the right;
+#' Centered at the i-th bin, find the bin half_width away to the left and to the right;
 #' Truncate at the 1st or the biggest bin when hitting the boundary. Essential
 #' for evaluating if a bin is likely to be the location of a peak (aka band)
 #'
@@ -82,7 +82,7 @@ compute_local_relative_score <- function(dat_binned,half_width,lanes,
 #' Given each contiguous peak candidate regions, find the bin that we call peak (aka band)
 #'
 #'
-#' @param score_mat The matrix of scores calcualted by \code{\link{compute_local_relative_score}}
+#' @param score_mat The matrix of scores calculated by \code{\link{compute_local_relative_score}}
 #' @param score_thres The threshold greater than or equal to which we call the peak-candidate regions (
 #' must be contiguous)
 #' @param dat_binned Binned autoradiointensity data
@@ -94,11 +94,11 @@ compute_local_relative_score <- function(dat_binned,half_width,lanes,
 
 compute_score_mat_peak <- function(score_mat,score_thres,dat_binned,
                                    gap_considered_identical_peak=5){
-  
+
   # score_mat <- score_mat_list[[s]]
   # dat_binned <- dat_binned_list[[s]]
   # gap_considered_identical_peak <- 5
-  
+
   n_g <- ncol(score_mat)
   score_mat_peak <- matrix(NA,nrow=nrow(dat_binned),ncol=n_g)
   for (lane in 1:n_g){

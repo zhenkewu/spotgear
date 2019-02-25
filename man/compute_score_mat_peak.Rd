@@ -8,7 +8,7 @@ compute_score_mat_peak(score_mat, score_thres, dat_binned,
   gap_considered_identical_peak = 5)
 }
 \arguments{
-\item{score_mat}{The matrix of scores calcualted by \code{\link{compute_local_relative_score}}}
+\item{score_mat}{The matrix of scores calculated by \code{\link{compute_local_relative_score}}}
 
 \item{score_thres}{The threshold greater than or equal to which we call the peak-candidate regions (
 must be contiguous)}
