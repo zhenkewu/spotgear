@@ -181,6 +181,7 @@ pwl_after_dewarping    <- function(g_id,l_id,normalized_rf,dat_without_lane1,dat
 #' to the peaks; requires common binning across images), lane_ID_stacked (cummulative lane number upon stacking
 #' gels one-by-one; mainly for plotting).
 #' @param mcmc_options A list of Markov chain Monte Carlo (MCMC) options.
+#' @param L number of landmarks; default to 100.
 #'
 #' \itemize{
 #' \item \code{debugstatus} Logical - whether to pause WinBUGS after it finishes
@@ -199,7 +200,7 @@ pwl_after_dewarping    <- function(g_id,l_id,normalized_rf,dat_without_lane1,dat
 #' 
 #' @export
 dewarp2d <- 
-  function(data_dewarp,mcmc_options){
+  function(data_dewarp,mcmc_options,L=100){
     gel_with_lane1 <- unique(subset(data_dewarp[,c("gel_ID","lane_ID")],lane_ID==1))[,1]
     if (sum(data_dewarp$lane_ID==1)>0){
       warning(paste0("==[spotgear] 'data_dewarp' contains Lane 1s for Gel ",
@@ -264,7 +265,7 @@ dewarp2d <-
     
     # horizontal:
     T2 <- 10  # <-- no. of bases in "gel" direction.
-    L  <- 50  # <-- no. of interior landmarks.
+    #L  <- 100  # <-- no. of interior landmarks.
     Y_std       <- (Y-mean(curr_dat$Y))/sd(curr_dat$Y) # <-- horizontal standardization.
     leftend_std <- (0-mean(curr_dat$Y))/sd(curr_dat$Y)
     rightend_std <- (1-mean(curr_dat$Y))/sd(curr_dat$Y)

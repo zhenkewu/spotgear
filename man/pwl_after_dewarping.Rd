@@ -4,9 +4,9 @@
 \alias{pwl_after_dewarping}
 \title{Piecewise linear warping after aligning the landmarks}
 \usage{
-pwl_after_dewarping(g_id, l_id, normalized_rf, dat_without_lane1, data_lcm_all,
-  zero_to_one_v_landmark, bugs_gel_id, bugs_in_gel_id, N_per_gel, Z_map, n_vec,
-  lookup)
+pwl_after_dewarping(g_id, l_id, normalized_rf, dat_without_lane1,
+  data_lcm_all, zero_to_one_v_landmark, bugs_gel_id, bugs_in_gel_id,
+  N_per_gel, Z_map, n_vec, lookup)
 }
 \arguments{
 \item{g_id}{Gel id}

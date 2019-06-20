@@ -2,8 +2,8 @@ Package: spotgear
 Type: Package
 Title: Subset Profiling and Organizing Tools for Gel Electrophoresis
     Autoradiography in R
-Version: 1.0.1.0001
-Date: 2018-07-12
+Version: 1.0.1.0002
+Date: 2019-06-20
 Authors@R: as.person(c(
     "Zhenke Wu <zhenkewu@umich.edu> [aut, cre]",
     "Scott Zeger <sz@jhu.edu> [aut]"
@@ -23,7 +23,7 @@ License: MIT + file LICENSE
 SystemRequirements: JAGS (>= 4.1.0) (http://mcmc-jags.sourceforge.net)
 Encoding: UTF-8
 LazyData: true
-RoxygenNote: 6.0.1.9000
+RoxygenNote: 6.1.1
 Suggests: knitr,
     rmarkdown,
     MassSpecWavelet

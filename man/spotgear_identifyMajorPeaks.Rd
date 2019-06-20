@@ -5,10 +5,10 @@
 \title{Identify peaks based on the ridges in 2-D CWT coefficient matrix}
 \usage{
 spotgear_identifyMajorPeaks(ms, ridgeList, wCoefs,
-  scales = as.numeric(colnames(wCoefs)), SNR.Th = 3, peakScaleRange = c(5,
-  64), ridgeLength = 32, nearbyPeak = TRUE, nearbyWinSize = 100,
-  winSize.noise = 10, SNR.method = "quantile", minNoiseLevel = 0.001,
-  shape_ratio = 0.01, minPeakArea = 0.05)
+  scales = as.numeric(colnames(wCoefs)), SNR.Th = 3,
+  peakScaleRange = c(5, 64), ridgeLength = 32, nearbyPeak = TRUE,
+  nearbyWinSize = 100, winSize.noise = 10, SNR.method = "quantile",
+  minNoiseLevel = 0.001, shape_ratio = 0.01, minPeakArea = 0.05)
 }
 \arguments{
 \item{ms}{The autoradiointensity data}

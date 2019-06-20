@@ -4,7 +4,7 @@
 \alias{dewarp2d}
 \title{Fit Bayesian 2D image dewarping models}
 \usage{
-dewarp2d(data_dewarp, mcmc_options)
+dewarp2d(data_dewarp, mcmc_options, L = 100)
 }
 \arguments{
 \item{data_dewarp}{Data frame with columns: gel_ID (true id), lane_ID (1 to say 20, 1 will be removed),
@@ -12,7 +12,9 @@ band_ID (counts within each lane), Y (t-scale location of peaks), peak_bin_index
 to the peaks; requires common binning across images), lane_ID_stacked (cummulative lane number upon stacking
 gels one-by-one; mainly for plotting).}
 
-\item{mcmc_options}{A list of Markov chain Monte Carlo (MCMC) options.
+\item{mcmc_options}{A list of Markov chain Monte Carlo (MCMC) options.}
+
+\item{L}{number of landmarks; default to 100.
 
 \itemize{
 \item \code{debugstatus} Logical - whether to pause WinBUGS after it finishes

@@ -42,6 +42,12 @@ smooth_gel <- function(dat_raw,span){
 #' @export
 bin_gel <- function(dat_smoothed,break_points){
   group <- cut(dat_smoothed$rf,break_points,include.lowest = TRUE) # <-- binning according to break points
+  if (length(which(table(group)==0))>0){
+    # Note that for an even grid, it maybe likely that the data do no have any observation
+    # in a particular interval. So this suggests quantile-based grid will be better.
+    group <- cut(dat_smoothed$rf,quantile(dat_smoothed$rf,break_points),include.lowest = TRUE)
+    # length equal to the number of rows in dat_smoothed.
+  }
   form  <- stats::as.formula(paste0("cbind(rf,",
                                     paste(colnames(dat_smoothed)[-1],collapse=", "),
                                     ")~group"))
